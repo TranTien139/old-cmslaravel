@@ -1,0 +1,59 @@
+<!DOCTYPE html><html>   <head>		
+<title>video blogtamsu</title>		
+<meta property="og:type" content="article" />		
+<meta property="og:site_name" content="Blogtamsu />        
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">       
+	<link rel="stylesheet" type="text/css"
+          href="http://m.1news.video/dist/js/plugins/videojs/videojs/videojs_5/video-js.css?ver=6.9"/>
+    <!-- VideoJs.vast.vpaid required styles-->
+    <link rel="stylesheet" type="text/css"
+          href="http://m.1news.video/dist/js/plugins/videojs/styles/videojs.vast.vpaid.css?ver=6.9"/>
+ <meta name="revisit-after" content="1 days">       
+ <meta http-equiv="content-language" content="vi" />       
+ <meta name="robots" content="noindex" />
+ </head>
+ <body>
+<script>
+var urlParams;
+(window.onpopstate = function () {
+    var match,
+        pl     = /\+/g,  // Regex for replacing addition symbol with a space
+        search = /([^&=]+)=?([^&]*)/g,
+        decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+        query  = window.location.search.substring(1);
+    urlParams = {};
+    while (match = search.exec(query))
+       urlParams[decode(match[1])] = decode(match[2]);
+})();
+</script>
+
+<form id="vast-vpaid-form">
+	<div class="row">
+			<div class="vjs-video-container" id="" data-link="" data-image="" data-id="">
+		  </div>
+	</div>
+</form>				
+<script>
+ // gets all elements of class-name 'fb-comments' from the document
+var videoparam = document.getElementsByClassName('vjs-video-container');
+    // the currentUrl variable
+    videoparam[0].setAttribute('data-link', urlParams["url"]);
+	videoparam[0].setAttribute('data-id', urlParams["id"]);
+	videoparam[0].setAttribute('data-image', urlParams["image"]);
+	videoparam[0].setAttribute('id', "vjs-video-container-"+urlParams["id"]);
+</script>
+
+<script src="http://m.1news.video/dist/js/jquery-3.0.0.min.js?ver=6.9"></script>
+<script type="text/javascript"
+        src="http://m.1news.video/dist/js/plugins/videojs/videojs/videojs_5/video.js?ver=6.9"></script>
+<script type="text/javascript"
+        src="http://m.1news.video/dist/js/plugins/videojs/scripts/es5-shim.js?ver=6.9"></script>
+<script type="text/javascript"
+        src="http://m.1news.video/dist/js/plugins/videojs/scripts/ie8fix.js?ver=6.9"></script>
+<script type="text/javascript"
+        src="http://m.1news.video/dist/js/plugins/videojs/scripts/videojs_5.vast.vpaid.js?ver=6.9"></script>
+<script type="text/javascript"
+        src="http://m.1news.video/dist/js/plugins/videojs/videojs/scripts/videojs.js?ver=6.9"></script>
+	
+ </body>
+ </html>
