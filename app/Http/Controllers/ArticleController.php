@@ -187,7 +187,6 @@ class ArticleController extends Controller
                 ParseCategory($cat, $article);
             }
 
-            $this->_cache->getById($article->id);
             return json_encode(['status' => 'success', 'msg' => 'Lưu bài viết thành công']);
         } catch (\Exception $e) {
             return json_encode(['status' => 'error', 'msg' => $e->getMessage()]);

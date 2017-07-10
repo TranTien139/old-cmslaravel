@@ -22,19 +22,7 @@ function CacheCollectionHome($type)
 
 function ParseTag($v, $article = null)
 {
-    if ($article != null) {
-        if (isset($article->tags) && json_decode($article->tags)) {
-            foreach (json_decode($article->tags) as $item) {
-                foreach ($item as $k => $tag) {
-                    @DeleteZKeyIndex('category_article_' . $k, $article->id);
-                }
-            }
-        }
-        if ($article->status != 'publish') {
-            @RemoveIndexArticle($article);
-        }
-        @DeleteKeyRedis('article_category_' . $article->id);
-    }
+
     $meta_final = [];
     if ($v != null) {
         $tags = explode('||', $v);
@@ -110,17 +98,9 @@ function ParseRelate($v)
 
 function ParseCategory($v, $article)
 {
-    if (isset($article->articleCategory)) {
-        $categories_1 = $article->articleCategory;
-        foreach ($categories_1 as $cat) {
-            @DeleteZKeyIndex('category_article_' . $cat->id, $article->id);
-        }
-    }
-    if ($article->status != 'publish') {
-        @RemoveIndexArticle($article);
-    }
+
     $article->articleCategory()->detach();
-    @DeleteKeyRedis('article_category_' . $article->id);
+
     $categories = $v;
     if (!empty($categories)) {
         if (!in_array(79, $categories)) {

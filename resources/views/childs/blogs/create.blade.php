@@ -319,7 +319,7 @@
         function BrowseServer(obj) {
             urlobj = obj;
             OpenServerBrowser(
-                "{{url('/')}}" + '/filemanager/index.html',
+                "{{url('/')}}" + 'public/filemanager/index.html',
                 screen.width * 0.7,
                 screen.height * 0.7);
         }
@@ -475,6 +475,7 @@
             var list_related = $list_related.join('||');
 
             var content = tinyMCE.activeEditor.getContent();
+
             var formData = {
                 _token: $("input[name='_token']").val(),
                 type: 'Blog',
@@ -508,7 +509,7 @@
                 return;
             }
 
-            $('button[type=submit]').hide();
+//            $('button[type=submit]').hide();
             $.ajax({
                 type: "POST",
                 url: '/media/blog/create/',
@@ -523,7 +524,7 @@
                     });
                 },
                 error: function (err) {
-                    alert('Có lỗi xảy ra');
+                    alert(err);
                 },
             });
         });
