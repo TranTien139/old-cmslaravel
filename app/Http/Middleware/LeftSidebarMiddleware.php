@@ -64,30 +64,7 @@ class LeftSidebarMiddleware {
                     'title' => 'Quản Lý Video',
                     'icon' => 'fa fa-youtube'
                 ]);
-                // $menu->add([
-                //     'url' => '/media/notification',
-                //     'title' => 'Thông báo',
-                //     'icon' => 'fa fa-bell'
-                // ]);
-                // if (auth()->user()->user_type == 'Admin' || auth()->user()->user_type == 'Editor') :
-                //     $menu->add([
-                //         'url' => '/collection',
-                //         'title' => 'Bộ Sưu Tập',
-                //         'icon' => 'fa fa-bookmark'
-                //     ]);
-                //     $menu->add([
-                //         'url' => '/config/create',
-                //         'title' => 'Quản Lý Cấu Hình',
-                //         'icon' => 'fa fa-cog'
-                //     ]);
-                // ENDIF;
-                // if (auth()->user()->user_type == 'Admin' || auth()->user()->user_type == 'Editor') :
-                //     $menu->add([
-                //         'url' => 'media/built-top',
-                //         'title' => 'Builtop',
-                //         'icon' => 'fa fa-cubes'
-                //     ]);
-                // ENDIF;
+
                 if (auth()->user()->user_type == 'Admin' || auth()->user()->user_type == 'Editor') :
                     $menu->add([
                         'url' => '/questions',
@@ -117,11 +94,6 @@ class LeftSidebarMiddleware {
                     'icon' => 'fa fa-user-plus'
                 ]);
 
-                $menu->add([
-                    'url' => '/logs',
-                    'title' => 'Quản lý Logs',
-                    'icon' => 'fa fa-cog'
-                ]);
             });
         }   
 

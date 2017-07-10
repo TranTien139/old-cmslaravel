@@ -11,9 +11,10 @@ use App\Http\Controllers\Controller;
 class UserController extends Controller {
 
     public function getQuanTriVien() {
-        $this->authorize('ReadUser');
 
+        $this->authorize('ReadUser');
         return view('childs.user.index');
+
     }
 
     public function getThanhVien() {

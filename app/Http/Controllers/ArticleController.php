@@ -37,11 +37,6 @@ class ArticleController extends Controller
 
     public function getIndex(Request $request)
     {
-//        $redis = new \Redis();
-//        $redis->connect(env('REDIS_HOST'));
-//        $data = $redis->zRange('article_category_' . 121, 0, -1);
-//        $data = $redis->zRevRange('category_article_' . 73, 0, -1, true);
-//        dd($data);
         $this->authorize('ViewArticle');
         $user_role = auth()->user()->user_type;
         try {
@@ -79,8 +74,8 @@ class ArticleController extends Controller
             }
 
             if ($start_date != null && $end_date != null) {
-                $start_date = date('Y-m-d H:i:s', $start_date);
-                $end_date = date('Y-m-d H:i:s', $end_date);
+                $start_date = date('Y-m-d H:i:s', intval($start_date));
+                $end_date = date('Y-m-d H:i:s', intval($end_date));
                 $articles = $articles->whereRaw("(article.created_at BETWEEN '" . $start_date . "' AND  '" . $end_date . "')");
             }
 

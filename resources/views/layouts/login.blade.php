@@ -4,8 +4,9 @@
 
 <div class="login-box">
     <div class="login-logo">
-        <a href="javascript:void(0);"><b>EyePlus Jsc</b></a>
-    </div><!-- /.login-logo -->
+        <a href="javascript:void(0);"><b>Login</b></a>
+    </div>
+
     @if(Session::has('errors'))
         <div class="alert alert-danger alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -47,17 +48,17 @@
 </div><!-- /.login-box -->
 
 <!-- jQuery 2.1.4 -->
-<script src="{{ asset('plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
+<script src="{{ asset('public/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
 <!-- Bootstrap 3.3.5 -->
-<script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('public/bootstrap/js/bootstrap.min.js') }}"></script>
 <!-- iCheck -->
-<script src="{{ asset('plugins/iCheck/icheck.min.js') }}"></script>
+<script src="{{ asset('public/plugins/iCheck/icheck.min.js') }}"></script>
 <script>
     $(function () {
         $('input').iCheck({
             checkboxClass: 'icheckbox_square-blue',
             radioClass: 'iradio_square-blue',
-            increaseArea: '20%' // optional
+            increaseArea: '20%'
         });
     });
 </script>

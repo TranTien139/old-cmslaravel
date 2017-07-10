@@ -4,6 +4,7 @@
     <section class="content-header">
         <h1 style="margin-bottom: 10px;">{{ trans('menu.list_articles') }}</h1>
         <a href="{{ URL::to('media/article/create') }}" class="btn btn-success">Tạo bài viết video</a>
+        <a href="{{ URL::to('media/blog/create') }}" class="btn btn-success">Tạo bài viết blog</a>
         <ol class="breadcrumb">
             <li><a href="{!! url('/') !!}"><i class="fa fa-dashboard"></i> Home</a></li>
             <li class="active">{{ trans('menu.media_zone') }}</li>
@@ -182,18 +183,18 @@
 @stop
 
 @section('custom_header')
-    <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker-bs3.css') }}">
-    <link href="{{ asset('plugins/iCheck/minimal/blue.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('public/plugins/daterangepicker/daterangepicker-bs3.css') }}">
+    <link href="{{ asset('public/plugins/iCheck/minimal/blue.css') }}" rel="stylesheet">
 @stop
 
 @section('custom_footer')
-    <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('dist/js/module/article.js') }}"></script>
+    <script src="{{ asset('public/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('public/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('public/dist/js/module/article.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-    <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
-    <script src="{{ asset('plugins/iCheck/icheck.js') }}"></script>
-    <script src="{{ asset('plugins/iCheck/icheck.min.js') }}"></script>
+    <script src="{{ asset('public/plugins/daterangepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('public/plugins/iCheck/icheck.js') }}"></script>
+    <script src="{{ asset('public/plugins/iCheck/icheck.min.js') }}"></script>
     <script>
         function deleteArt(id, check) {
             if (check == 1) {

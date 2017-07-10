@@ -289,8 +289,8 @@
     // text = text.replace(/\r?\n/g, '<br />');
 </script>
 @section('custom_footer')
-    <link rel="stylesheet" type="text/css" href="/uploadify/uploadify.css">
-    <script type="text/javascript" src="/uploadify/jquery.uploadify.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/public/uploadify/uploadify.css">
+    <script type="text/javascript" src="/public/uploadify/jquery.uploadify.min.js"></script>
     <script>
         var max_len = 500;
         $(document).ready(function () {
@@ -473,9 +473,9 @@
         });
         function createTag(str) {
             $(document).ready(function () {
-                $.getScript("{{ asset('dist/js/jquery-ui.js') }}", function () {
-                    $.getScript("{{ asset('dist/js/caret.js') }}", function () {
-                        $.getScript("{{ asset('dist/js/tag.js') }}", function () {
+                $.getScript("{{ asset('public/dist/js/jquery-ui.js') }}", function () {
+                    $.getScript("{{ asset('public/dist/js/caret.js') }}", function () {
+                        $.getScript("{{ asset('public/dist/js/tag.js') }}", function () {
                             $('#' + str).tagEditor({
                                 autocomplete: {
                                     delay: 0,

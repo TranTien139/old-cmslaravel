@@ -122,13 +122,13 @@
 @stop
 
 @section('custom_header')
-    <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/plugins/datatables/dataTables.bootstrap.css') }}">
 @stop
 
 @section('custom_footer')
-    <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('dist/js/module/user.js') }}"></script>
+    <script src="{{ asset('public/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('public/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('public/dist/js/module/user.js') }}"></script>
     <script>
         var UserType = {
             @foreach(config('admincp.user_type') as $key => $item)

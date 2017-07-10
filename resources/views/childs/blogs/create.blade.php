@@ -17,7 +17,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="row">
-            <form role="form" id="blog_form" method="post">
+            <form role="form" id="blog_form" >
                 {{csrf_field()}}
                 <div class="col-md-2">
                     <ul class="nav nav-tabs-custom nav-stacked" role="tablist">
@@ -46,18 +46,13 @@
                                             <input type="name" class="form-control" name='title'
                                                    placeholder="Điền tiêu đề">
                                         </div>
-                                        <div class="form-group">
-                                            <label><i class="fa fa-list-ul"></i> {{ trans('article.title_extra') }}
-                                            </label>
-                                            <input type="name" class="form-control" name='title_extra'
-                                                   placeholder="Điền thêm tiêu đề">
-                                        </div>
+
                                         <div class="form-group">
                                             <label><i class="fa fa-paragraph"></i> Mô Tả
                                             </label>
-                                        <textarea class="form-control" name="description" rows="4"
-                                                  id="description_article"
-                                                  placeholder="{{ trans('article.description_ph') }}"></textarea>
+                                            <textarea class="form-control" name="description" rows="4"
+                                                      id="description_article"
+                                                      placeholder="{{ trans('article.description_ph') }}"></textarea>
                                             <small class="pull-right" style="margin-top: -25px;margin-right: 5px;">
                                                 (words left: <span
                                                         id="word_left"></span>)
@@ -68,12 +63,20 @@
                                             </label>
                                             <textarea class="form-control" name="content" id="editor"></textarea>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group" id="tags_article_top">
                                             <label><i class="fa fa-tags"></i> {{ trans('article.tag') }}</label>
                                             <input type="name" class="form-control"
                                                    placeholder="{{ trans('article.tag_ph') }}" id="tags_article"
                                                    name="tags">
                                         </div>
+
+                                        <div class="form-group" id="related_article_top">
+                                            <label><i class="fa fa-tags"></i> Tin Liên Quan</label>
+                                            <input type="name" class="form-control"
+                                                   placeholder="{{ trans('article.tag_ph') }}" id="related_article"
+                                                   name="related">
+                                        </div>
+
                                     </div><!-- /.box-body -->
                                 </div><!-- /.box-body -->
                             </div>
@@ -94,9 +97,9 @@
                                     <div class="form-group">
                                         <label><i class="fa fa-paragraph"></i> {{ trans('article.seo_description') }}
                                         </label>
-                                    <textarea class="form-control" name="seo_description" rows="4"
-                                              name="seo_description"
-                                              placeholder="{{ trans('article.seo_description_ph') }}"></textarea>
+                                        <textarea class="form-control" name="seo_description" rows="4"
+                                                  name="seo_description"
+                                                  placeholder="{{ trans('article.seo_description_ph') }}"></textarea>
                                     </div>
                                 </div><!-- /.box-body -->
                             </div>
@@ -108,7 +111,7 @@
                         <div class="box-header with-border">
                             <i class="fa fa-image"></i>
                             <h3 class="box-title">Ảnh Đại Diện</h3>
-                        </div><!-- /.box-header -->
+                        </div>
                         <div class="box-body">
                             <a class="btn btn-block btn-danger fa fa-trash"
                                style="width:35px;position: relative;top:0px ;float: right;display: none;"
@@ -124,54 +127,157 @@
                                     <h4 class="text-muted">Bấm Vào! Chọn Ảnh</h4>
                                 </div>
                             </div>
-
-                        </div><!-- /.box-body -->
-                        <input id="id_of_the_target_input" type="hidden" name="thumbnail"/>
-                    </div><!-- /.box -->
-                    <div class="box box-solid">
-                        <div class="box-header">
-                            <i class="fa fa-image"></i>
-                            <h3 class="box-title">Chọn Trạng Thái Văn Bản</h3>
                         </div>
-                        <div class="box-body">
-                            <!-- Color Picker -->
-                            <div class="form-group">
-                                <label>Trạng Thái:</label>
-                                <div class="input-group">
-                                    <select class="form-control" name="status">
-                                        <option value="draft">Draft</option>
-                                        <option value="">Schedule</option>
-                                        <option value="pending">Verify</option>
-                                    </select>
-                                    <div class="input-group-addon add-on">
-                                        <i class="fa fa-warning" data-time-icon="icon-time"
-                                           data-date-icon="icon-calendar"></i>
+                        <input id="id_of_the_target_input" type="hidden" name="thumbnail"/>
+                    </div>
+
+                    @can('PublishArticle')
+                        <div class="box box-solid">
+                            <div class="box-header">
+                                <i class="fa fa-image"></i>
+                                <h3 class="box-title">Thời gian xuất bản</h3>
+                            </div>
+                            <div class="box-body">
+                                <!-- Color Picker -->
+                                <div class="form-group">
+                                    <label>Ngày Xuất Bản:</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="datepicker" name="publish_date">
+                                        <div class="input-group-addon add-on">
+                                            <i class="fa fa-calendar" data-time-icon="icon-time"
+                                               data-date-icon="icon-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.form group -->
+
+
+                                <!-- time Picker -->
+                                <div class="bootstrap-timepicker">
+                                    <div class="bootstrap-timepicker-widget dropdown-menu">
+                                        <table>
+                                            <tbody>
+                                            <tr>
+                                                <td><a href="#" data-action="incrementHour"><i
+                                                                class="glyphicon glyphicon-chevron-up"></i></a></td>
+                                                <td class="separator">&nbsp;</td>
+                                                <td><a href="#" data-action="incrementMinute"><i
+                                                                class="glyphicon glyphicon-chevron-up"></i></a></td>
+                                                <td class="separator">&nbsp;</td>
+                                                <td class="meridian-column"><a href="#" data-action="toggleMeridian"><i
+                                                                class="glyphicon glyphicon-chevron-up"></i></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="bootstrap-timepicker-hour">02</span></td>
+                                                <td class="separator">:</td>
+                                                <td><span class="bootstrap-timepicker-minute">15</span></td>
+                                                <td class="separator">&nbsp;</td>
+                                                <td><span class="bootstrap-timepicker-meridian">PM</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#" data-action="decrementHour"><i
+                                                                class="glyphicon glyphicon-chevron-down"></i></a></td>
+                                                <td class="separator"></td>
+                                                <td><a href="#" data-action="decrementMinute"><i
+                                                                class="glyphicon glyphicon-chevron-down"></i></a></td>
+                                                <td class="separator">&nbsp;</td>
+                                                <td><a href="#" data-action="toggleMeridian"><i
+                                                                class="glyphicon glyphicon-chevron-down"></i></a></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Thời gian xuất bản</label>
+
+                                        <div class="input-group">
+                                            <input type="text" class="form-control timepicker" name="publish_time">
+
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-clock-o"></i>
+                                            </div>
+                                        </div>
+                                        <!-- /.input group -->
+                                    </div>
+                                    <!-- /.form group -->
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <!-- Color Picker -->
+                                <div class="form-group">
+                                    <label>Trạng Thái:</label>
+                                    <div class="input-group">
+                                        <select class="form-control" name="status">
+                                            <option value="draft">Draft</option>
+                                            <option value="verify">Verify</option>
+                                            <option value="schedule">Schedule</option>
+                                        </select>
+                                        <div class="input-group-addon add-on">
+                                            <i class="fa fa-warning" data-time-icon="icon-time"
+                                               data-date-icon="icon-calendar"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- /.box-body -->
                         </div>
+                    @else
                         <div class="box box-solid">
-                            <div class="box-header with-border">
-                                <i class="fa fa-book"></i>
-                                <h3 class="box-title">Thuộc Chuyên Mục<span style="color:red;">*</span></h3>
-                            </div><!-- /.box-header -->
+                            <div class="box-header">
+                                <i class="fa fa-image"></i>
+                                <h3 class="box-title">Chọn Trạng Thái Văn Bản</h3>
+                            </div>
                             <div class="box-body">
-                                <div class="category">
-                                    @if(isset($category))
-                                        <?php cate_parent_checkbox($category, 0, '', 0) ?>
-                                    @endif
-                                    <input type="hidden" name="parent_id">
+                                <!-- Color Picker -->
+                                <div class="form-group">
+                                    <label>Trạng Thái:</label>
+                                    <div class="input-group">
+                                        <select class="form-control" name="status">
+                                            <option value="draft">Draft</option>
+                                            <option value="verify">Verify</option>
+                                        </select>
+                                        <div class="input-group-addon add-on">
+                                            <i class="fa fa-warning" data-time-icon="icon-time"
+                                               data-date-icon="icon-calendar"></i>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div><!-- /.box-body -->
-                        </div><!-- /.box -->
-                        <!-- /.box-body -->
-                    </div>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                    @endcan
+
+                    <div class="box box-solid">
+                        <div class="box-header with-border">
+                            <i class="fa fa-book"></i>
+                            <h3 class="box-title">Thuộc Chuyên Mục<span style="color:red;">*</span></h3>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="category">
+                                @if(isset($category))
+                                    <?php cate_parent_checkbox($category, 0, '', 0) ?>
+                                @endif
+                                <input type="hidden" name="parent_id">
+                            </div>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+
                     <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fa fa-save"></i>
                         Lưu bài viết
                     </button>
             </form>
         </div>
     </section>
+    <style type="text/css">
+        .slLevel, .slPrepTime {
+            width: 100%;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 16px;
+            border: 1px solid #dadada;
+        }
+
+    </style>
 @stop
 {{--Script Import --}}
 @section('custom_footer')
@@ -179,10 +285,8 @@
     <script>
         var max_len = 200;
         $(document).ready(function () {
-
-
             $.getScript("https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js");
-            $.getScript("{{ asset('dist/js/module/article.js?v4') }}");
+            $.getScript("{{ asset('public/dist/js/module/article.js?v4') }}");
             $("textarea[name=description]").on('keyup', function () {
                 var words = 0;
                 if (this.value !== '') {
@@ -215,9 +319,9 @@
         function BrowseServer(obj) {
             urlobj = obj;
             OpenServerBrowser(
-                    "{{url('/')}}" + '/filemanager/index.html',
-                    screen.width * 0.7,
-                    screen.height * 0.7);
+                "{{url('/')}}" + '/filemanager/index.html',
+                screen.width * 0.7,
+                screen.height * 0.7);
         }
         function OpenServerBrowser(url, width, height) {
             var iLeft = (screen.width - width) / 2;
@@ -235,13 +339,13 @@
             if (urlobj == 'id_of_the_target_input') {
                 $('#replace').hide();
                 $('.fa-trash').show();
-                $('#image_replace').attr('src', '{{env("MEDIA_PATH")}}' + url.replace('{{env("REPLACE_PATH")}}', ''));
+                $('#image_replace').attr('src', '{{env("MEDIA_PATH")}}' + url.replace('{{env("REPLACE_PATH_2")}}', ''));
                 $('#image_replace').show();
                 oWindow = null;
             } else if (urlobj == 'id_of_the_target_input_extra') {
                 $('#replace_extra').hide();
                 $('.fa-trash').show();
-                $('#image_replace_extra').attr('src', '{{env("MEDIA_PATH")}}' + url.replace('{{env("REPLACE_PATH")}}', ''));
+                $('#image_replace_extra').attr('src', '{{env("MEDIA_PATH")}}' + url.replace('{{env("REPLACE_PATH_2")}}', ''));
                 $('#image_replace_extra').show();
                 oWindow = null;
             } else {
@@ -283,61 +387,61 @@
         }
         $('#get_url_image').on('click', function () {
             swal({
-                        title: "Link Image!",
-                        text: "Write Url Here:",
-                        type: "input",
-                        showCancelButton: true,
-                        closeOnConfirm: false,
-                        animation: "slide-from-top",
-                        inputPlaceholder: "Write something"
-                    },
-                    function (inputValue) {
-                        if (inputValue === false)
-                            return false;
-                        if (inputValue === "") {
-                            swal.showInputError("You need to write something!");
-                            return false
-                        }
-                        swal({title: 'Choose Image Success', type: 'success'}, function (isConfirm) {
-                            if (isConfirm) {
-                                $('#replace').hide();
-                                $('.fa-trash').show();
-                                $('#id_of_the_target_input').attr('value', inputValue);
-                                $('#image_replace').attr('src', inputValue);
-                                $('#image_replace').show();
+                    title: "Link Image!",
+                    text: "Write Url Here:",
+                    type: "input",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    animation: "slide-from-top",
+                    inputPlaceholder: "Write something"
+                },
+                function (inputValue) {
+                    if (inputValue === false)
+                        return false;
+                    if (inputValue === "") {
+                        swal.showInputError("You need to write something!");
+                        return false
+                    }
+                    swal({title: 'Choose Image Success', type: 'success'}, function (isConfirm) {
+                        if (isConfirm) {
+                            $('#replace').hide();
+                            $('.fa-trash').show();
+                            $('#id_of_the_target_input').attr('value', inputValue);
+                            $('#image_replace').attr('src', inputValue);
+                            $('#image_replace').show();
 
-                            }
-                        });
+                        }
                     });
+                });
         });
         $('#get_url_image_extra').on('click', function () {
             swal({
-                        title: "Link Image!",
-                        text: "Write Url Here:",
-                        type: "input",
-                        showCancelButton: true,
-                        closeOnConfirm: false,
-                        animation: "slide-from-top",
-                        inputPlaceholder: "Write something"
-                    },
-                    function (inputValue) {
-                        if (inputValue === false)
-                            return false;
-                        if (inputValue === "") {
-                            swal.showInputError("You need to write something!");
-                            return false
-                        }
-                        swal({title: 'Choose Image Success', type: 'success'}, function (isConfirm) {
-                            if (isConfirm) {
-                                $('#replace_extra').hide();
-                                $('.fa-trash').show();
-                                $('#id_of_the_target_input_extra').attr('value', inputValue);
-                                $('#image_replace_extra').attr('src', inputValue);
-                                $('#image_replace_extra').show();
+                    title: "Link Image!",
+                    text: "Write Url Here:",
+                    type: "input",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    animation: "slide-from-top",
+                    inputPlaceholder: "Write something"
+                },
+                function (inputValue) {
+                    if (inputValue === false)
+                        return false;
+                    if (inputValue === "") {
+                        swal.showInputError("You need to write something!");
+                        return false
+                    }
+                    swal({title: 'Choose Image Success', type: 'success'}, function (isConfirm) {
+                        if (isConfirm) {
+                            $('#replace_extra').hide();
+                            $('.fa-trash').show();
+                            $('#id_of_the_target_input_extra').attr('value', inputValue);
+                            $('#image_replace_extra').attr('src', inputValue);
+                            $('#image_replace_extra').show();
 
-                            }
-                        });
+                        }
                     });
+                });
         });
         $(function () {
             $(".timepicker").timepicker({
@@ -345,6 +449,82 @@
             });
             $('#datepicker').datepicker({
                 autoclose: true
+            });
+        });
+
+        $('#blog_form').submit(function (event) {
+            event.preventDefault();
+            $image = $('#image_replace').attr('src');
+            $array = [];
+            $('input[name="category[]"]').each(function () {
+                if ($(this).prop('checked')) {
+                    $array.push($(this).val());
+                }
+            });
+            var category = $array.join(',');
+            $list_tag = [];
+            $('#tags_article_top .tag-editor.ui-sortable .tag-editor-tag').each(function () {
+                $list_tag.push($(this).text());
+            });
+            var list_tag = $list_tag.join('||');
+
+            $list_related = [];
+            $('#related_article_top .tag-editor.ui-sortable .tag-editor-tag').each(function () {
+                $list_related.push($(this).text());
+            });
+            var list_related = $list_related.join('||');
+
+            var content = tinyMCE.activeEditor.getContent();
+            var formData = {
+                _token: $("input[name='_token']").val(),
+                type: 'Blog',
+                status: $('select[name="status"]').val() === '' ? '' : $('select[name="status"]').val(),
+                title: $.trim($("input[name='title']").val()) === '' ? swal({
+                        title: 'Chưa nhập tiêu đề',
+                        type: 'error'
+                    }) : $("input[name='title']").val(),
+                description: $("textarea[name='description']").val(),
+                publish_date: $("input[name='publish_date']").val(),
+                parent_category: $('input[name=parent_id]').val() === '' ? swal({
+                        title: 'Chưa Chọn Cờ Đỏ',
+                        type: 'error'
+                    }) : $("input[name='parent_id']").val(),
+                publish_time: $("input[name='publish_time']").val(),
+                video_id: '',
+                thumbnail: $('#id_of_the_target_input').val(),
+                category: category == '' ? swal({
+                        title: 'Chọn Chuyên Mục',
+                        type: 'error'
+                    }) : category,
+                tags: list_tag,
+                related: list_related,
+                content: content,
+                seo_title: $("input[name='seo_title']").val() === '' ? $("input[name='title']").val() : $("input[name='seo_title']").val(),
+                seo_meta: $("input[name='seo_meta']").val() === '' ? $("input[name='title']").val() : $("input[name='seo_meta']").val(),
+                seo_description: $("textarea[name='seo_description']").val() === '' ? $("textarea[name='description']").val() : $("textarea[name='seo_description']").val(),
+            };
+
+            if (!formData.title || !formData.category || !formData.parent_category) {
+                return;
+            }
+
+            $('button[type=submit]').hide();
+            $.ajax({
+                type: "POST",
+                url: '/media/blog/create/',
+                dataType: 'json',
+                data: formData,
+                success: function (res) {
+                    event.preventDefault();
+                    swal({title: res.msg, type: res.status}, function (isConfirm) {
+                        if (isConfirm) {
+                            location.reload();
+                        }
+                    });
+                },
+                error: function (err) {
+                    alert('Có lỗi xảy ra');
+                },
             });
         });
 
